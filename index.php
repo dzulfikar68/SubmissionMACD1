@@ -46,7 +46,7 @@
             $sql_insert = "INSERT INTO Registration (ID, name, email, job, date) 
                         VALUES (?,?,?,?,?)";
             $stmt = $conn->prepare($sql_insert);
-            $stmt->bindValue(1, 6);
+            $stmt->bindValue(1, rand());
             $stmt->bindValue(2, $name);
             $stmt->bindValue(3, $email);
             $stmt->bindValue(4, $job);
