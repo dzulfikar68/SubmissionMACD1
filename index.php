@@ -34,7 +34,7 @@
         $conn = new PDO("sqlsrv:server = $host; Database = $db", $user, $pass);
         $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     } catch(Exception $e) {
-        echo "Failed: " . $e;
+        echo "Failed Connect: " . $e;
     }
     if (isset($_POST['submit'])) {
         try {
@@ -43,16 +43,17 @@
             $job = $_POST['job'];
             $date = date("Y-m-d");
             // Insert data
-            $sql_insert = "INSERT INTO Registration (name, email, job, date) 
-                        VALUES (?,?,?,?)";
+            $sql_insert = "INSERT INTO Registration (ID, name, email, job, date) 
+                        VALUES (?,?,?,?,?)";
             $stmt = $conn->prepare($sql_insert);
-            $stmt->bindValue(1, $name);
-            $stmt->bindValue(2, $email);
-            $stmt->bindValue(3, $job);
-            $stmt->bindValue(4, $date);
+            $stmt->bindValue(1, 6);
+            $stmt->bindValue(2, $name);
+            $stmt->bindValue(3, $email);
+            $stmt->bindValue(4, $job);
+            $stmt->bindValue(5, $date);
             $stmt->execute();
         } catch(Exception $e) {
-            echo "Failed: " . $e;
+            echo "Failed Insert: " . $e;
         }
         echo "<h3>Your're registered!</h3>";
     } else if (isset($_POST['load_data'])) {
@@ -78,7 +79,7 @@
                 echo "<h3>No one is currently registered.</h3>";
             }
         } catch(Exception $e) {
-            echo "Failed: " . $e;
+            echo "Failed List: " . $e;
         }
     }
  ?>
